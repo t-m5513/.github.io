@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>築地→寿司→甘いもん食べ放題コース</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Yomogi&family=Zen+Kurenaido&display=swap');
+        
+        :root {
+            --fashion-1: #593C47;
+            --fashion-2: #F2E63D;
+            --fashion-3: #F2C53D;
+            --fashion-4: #F25C05;
+            --fashion-5: #F24405;
+            --text-dark: #334155;
+            --text-heading: #1e40af;
+            --text-subheading: #475569;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Zen Kurenaido', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+            line-height: 1.4;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--fashion-1), var(--fashion-3), var(--fashion-5));
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed var(--fashion-3);
+            padding-bottom: 15px;
+        }
+        
+        h1 {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--fashion-1), var(--fashion-4));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        h1::after {
+            content: "🍣✨🍰";
+            position: absolute;
+            top: -5px;
+            right: -80px;
+            font-size: 24px;
+        }
+        
+        .date {
+            font-family: 'Yomogi', cursive;
+            color: var(--text-subheading);
+            font-size: 14px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 18px;
+            color: var(--text-heading);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--fashion-2);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 8px;
+        }
+        
+        .timeline {
+            position: relative;
+            margin-left: 20px;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 2px;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--fashion-2) 0,
+                var(--fashion-2) 4px,
+                transparent 4px,
+                transparent 8px
+            );
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: -5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--fashion-3);
+            border: 2px solid var(--fashion-1);
+        }
+        
+        .time {
+            font-weight: bold;
+            color: var(--fashion-1);
+            margin-bottom: 5px;
+        }
+        
+        .highlight {
+            background: linear-gradient(transparent 60%, var(--fashion-2) 40%);
+            font-weight: bold;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--fashion-3);
+            color: var(--fashion-1);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .note {
+            background-color: rgba(242, 230, 60, 0.2);
+            border-left: 3px solid var(--fashion-3);
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .icon {
+            margin-right: 5px;
+        }
+        
+        .arrow {
+            font-size: 20px;
+            color: var(--fashion-4);
+            margin: 0 5px;
+        }
+        
+        .options {
+            margin-top: 15px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        table th {
+            background-color: var(--fashion-1);
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        table td {
+            padding: 8px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .option-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .option-a {
+            border-left-color: var(--fashion-3);
+        }
+        
+        .option-b {
+            border-left-color: var(--fashion-4);
+        }
+        
+        .option-c {
+            border-left-color: var(--fashion-5);
+        }
+        
+        .recommendation {
+            background-color: rgba(242, 196, 60, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .recommendation::before {
+            content: "おすすめポイント";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background-color: var(--fashion-4);
+            color: white;
+            padding: 2px 10px;
+            font-size: 12px;
+            border-radius: 10px;
+        }
+        
+        .tips {
+            margin-top: 30px;
+        }
+        
+        .tips-list {
+            list-style: none;
+        }
+        
+        .tips-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .tips-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--fashion-4);
+            font-weight: bold;
+        }
+        
+        .hand-drawn {
+            border: 2px solid var(--fashion-1);
+            border-radius: 10px;
+            position: relative;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .hand-drawn::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            height: 16px;
+            width: 50px;
+            background-color: white;
+        }
+        
+        .connection-line {
+            position: absolute;
+            border-top: 2px dashed var(--fashion-4);
+            width: 50px;
+            transform: rotate(-30deg);
+        }
+        
+        .emoji-bullet {
+            margin-right: 8px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 12px;
+            color: var(--text-subheading);
+            font-style: italic;
+        }
+        
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>築地→寿司→甘いもん食べ放題コース</h1>
+            <div class="date">2025年5月5日作成</div>
+        </header>
+        
+        <div class="grid">
+            <!-- 左カラム: タイムライン -->
+            <div class="card">
+                <h2 class="section-title">🗓️ ざっくりタイムライン</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="time">10:00</div>
+                        <div class="activity"><span class="highlight">築地駅集合</span></div>
+                        <div class="note">
+                            <span class="icon">📌</span> 地上に出たらすぐ合流できるよう<span class="highlight">①番出口</span>推奨
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="time">10:05</div>
+                        <div class="activity"><span class="highlight">すしざんまい本店へ徒歩3分</span></div>
+                        <div class="note">
+                            <span class="icon">🕰️</span> 24時間営業だから行列ほぼナシ。カウンター空いてる🆗<br>
+                            <a href="http://kiyomura.co.jp" target="_blank">kiyomura.co.jp</a>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="time">10:15-11:15</div>
+                        <div class="activity"><span class="highlight">朝寿司タイム</span> 🍣</div>
+                        <div class="note">
+                            <span class="icon">🐟</span> 本マグロの赤身～大トロをメインで。朝帯はネタが瑞々しくておすすめ
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="time">11:15-12:15</div>
+                        <div class="activity"><span class="highlight">築地場外をブラブラ</span> 🚶‍♂️</div>
+                        <div class="note">
+                            <span class="emoji-bullet">☕</span> ちょっとコーヒー→Turret Coffee<br>
+                            <span class="emoji-bullet">🦑</span> 乾物・海鮮土産チェック
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="time">12:15</div>
+                        <div class="activity"><span class="highlight">ハラミ通り→歌舞伎座前を通過しつつ銀座方面へウォーク</span></div>
+                        <div class="note">
+                            <span class="icon">👣</span> のんびり歩いて15-20分
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 中央カラム: 食べ放題オプション -->
+            <div class="card">
+                <h2 class="section-title">🍰 甘い物食べ放題 3択</h2>
+                
+                <div class="option-card option-a">
+                    <div class="tag">A</div>
+                    <strong>The Kitchen Salvatore Cuomo GINZA</strong>
+                    <div><small>(ダイワロイネットホテル銀座 PREMIER B1)</small></div>
+                    <table>
+                        <tr>
+                            <td><span class="icon">⏰</span> 開始目安</td>
+                            <td>平日13:30枠がデザートビュッフェ付き<br>土日祝は12:00～15:00内で随時</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon">💰</span> 料金</td>
+                            <td>4,000円前後</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon">✨</span> 特徴</td>
+                            <td>40種超：ピッツァ&パスタ＋イチゴ・抹茶スイーツ食べ放題。<br>銀座一丁目駅1分／築地本願寺前から徒歩15分程度<br><small>オズモール</small></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="option-card option-b">
+                    <div class="tag">B</div>
+                    <strong>NAMIKI667 Weekend Brunch Buffet</strong>
+                    <div><small>(ハイアット セントリック銀座3F)</small></div>
+                    <table>
+                        <tr>
+                            <td><span class="icon">⏰</span> 開始目安</td>
+                            <td>土日祝限定 11:30～ or 12:00～</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon">💰</span> 料金</td>
+                            <td>7,800円前後</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon">✨</span> 特徴</td>
+                            <td>洋食ライブキッチン＋季節デザート台。<br>食事も豊富なのでガッツリ派向き。築地から20分ちょい<br><small>オズモール</small></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="option-card option-c">
+                    <div class="tag">C</div>
+                    <strong>インペリアルラウンジ AQUA アフタヌーンティー</strong>
+                    <div><small>(帝国ホテル本館17F @日比谷)</small></div>
+                    <table>
+                        <tr>
+                            <td><span class="icon">⏰</span> 開始目安</td>
+                            <td>毎日11:30-18:00L.O.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon">💰</span> 料金</td>
+                            <td>平日9,400円 / 休日9,800円</td>
+                        </tr>
+                        <tr>
+                            <td><span class="icon">✨</span> 特徴</td>
+                            <td>ビュッフェ形式ではないがスイーツ＆セイボリー6種＋スコーンが食後もおかわり自由。<br>優雅さ最重視ならココ<br><small>インペリアルホテル</small></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 右カラム: おすすめとポイント -->
+            <div class="card">
+                <h2 class="section-title">👍 俺的おすすめチョイス</h2>
+                
+                <div class="hand-drawn">
+                    <div style="font-weight: bold; color: var(--fashion-5);">平日なら A 一択</div>
+                    <p>すしざんまい→場外ぶらり→13:30チェックインでちょうど良い腹具合。40品の中に苺ショート、抹茶ティラミス、ジェラートステーションまであるから甘党でも満足。</p>
+                </div>
+                
+                <div class="hand-drawn">
+                    <div style="font-weight: bold; color: var(--fashion-5);">週末で腹ペコなら B</div>
+                    <p>11:30開始に間に合わせたいから、寿司を11:00手前で切り上げてタクシー移動（1,000円弱）にすると◎。肉系ライブステーション→〆にスイーツ台という流れ。</p>
+                </div>
+                
+                <div class="hand-drawn">
+                    <div style="font-weight: bold; color: var(--fashion-5);">雰囲気全振りで優雅に行くなら C</div>
+                    <p>歩き20分弱で帝国ホテル。ビュッフェじゃないけどおかわり可＆紅茶は茶葉替え放題。ピアノ生演奏もあってデート感MAX。</p>
+                </div>
+                
+                <div class="tips">
+                    <h2 class="section-title">📝 予約・注意ポイント</h2>
+                    <ul class="tips-list">
+                        <li><span class="highlight">ネット予約必須</span>：Aは13:30枠が少ない。Bは週末すぐ埋まる。Cは早い時間ほど席が選びやすい。</li>
+                        <li><span class="highlight">歩き移動前提</span>：ヒール・革靴なら銀ブラも快適だけど、雨なら地下鉄移動（東銀座→銀座一丁目／銀座／日比谷）が楽。</li>
+                        <li><span class="highlight">甘い→しょっぱい無限ループ注意</span>：寿司で塩分を摂りすぎるとスイーツの糖分で喉が渇くから、ウォーク中に水分確保しとくといいぞ。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            情報は2025年5月現在のものです。予約前に各店舗の最新情報をご確認ください。
+        </footer>
+    </div>
+</body>
+</html>
